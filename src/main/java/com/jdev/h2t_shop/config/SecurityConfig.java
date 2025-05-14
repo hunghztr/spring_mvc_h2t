@@ -1,6 +1,7 @@
 package com.jdev.h2t_shop.config;
 
 import com.jdev.h2t_shop.service.UserService;
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -10,10 +11,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
+    @Bean
+    public AuthenticationSuccessHandler successHandler(UserService userService) {
+        return new CustomSuccessHandler(userService);
+    }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -33,16 +39,19 @@ public class SecurityConfig {
         return authProvider;
     }
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login").permitAll()
-                        .anyRequest().permitAll()
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,UserService userService) throws Exception {
+        http.
+        authorizeHttpRequests(authorize -> authorize
+                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE).permitAll()
+                        .requestMatchers("/", "/login","/register").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form
+                .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        .permitAll()
-                )
+                        .failureUrl("/login?error")
+                        .successHandler(successHandler(userService))
+                        .permitAll())
                 .logout((logout) -> logout.permitAll());
 
         return http.build();
