@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "cart_details")
 @Data
@@ -19,4 +21,14 @@ public class CartDetail {
     @ManyToOne
     @JoinColumn(name = "cart_id")
     Cart cart;
+    Instant createdAt;
+    Instant updatedAt;
+    @PrePersist
+    void prePersist() {
+        createdAt = Instant.now();
+    }
+    @PreUpdate
+    void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }

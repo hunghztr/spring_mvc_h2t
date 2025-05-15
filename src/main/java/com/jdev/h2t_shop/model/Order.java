@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -23,4 +24,14 @@ public class Order {
     User user;
     @OneToMany(mappedBy = "order")
     List<OrderDetail> orderDetails;
+    Instant createdAt;
+    Instant updatedAt;
+    @PrePersist
+    void prePersist() {
+        createdAt = Instant.now();
+    }
+    @PreUpdate
+    void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }

@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "ratings")
 @Data
@@ -21,4 +23,14 @@ public class Rating {
     User user;
     String mess;
     int star;
+    Instant createdAt;
+    Instant updatedAt;
+    @PrePersist
+    void prePersist() {
+        createdAt = Instant.now();
+    }
+    @PreUpdate
+    void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }

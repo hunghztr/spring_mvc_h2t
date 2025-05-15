@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -33,4 +34,14 @@ public class Product {
     List<CartDetail> cart_details;
     @OneToMany(mappedBy = "product")
     List<Rating> ratings;
+    Instant createdAt;
+    Instant updatedAt;
+    @PrePersist
+    void prePersist() {
+        createdAt = Instant.now();
+    }
+    @PreUpdate
+    void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }

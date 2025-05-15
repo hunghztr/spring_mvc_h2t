@@ -21,8 +21,9 @@
         }
     </script>
 </head>
-<body class="min-h-screen bg-white flex">
-
+<body class="min-h-screen bg-white">
+<jsp:include page="../layout/header.jsp" />
+<div class = "flex">
 <!-- Left Side (Background or Image) -->
 <div class="hidden md:flex md:w-1/2 items-center justify-center border-r border-gray-200">
     <!-- Bạn có thể thay khối màu này bằng ảnh -->
@@ -85,6 +86,7 @@
         </p>
     </div>
 </div>
-
+</div>
+<jsp:include page="../layout/footer.jsp" />
 </body>
 </html>

@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "product_details")
 @Data
@@ -22,4 +24,14 @@ public class ProductDetail {
     @ManyToOne
     @JoinColumn(name = "size_id")
     Size size;
+    Instant createdAt;
+    Instant updatedAt;
+    @PrePersist
+    void prePersist() {
+        createdAt = Instant.now();
+    }
+    @PreUpdate
+    void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }

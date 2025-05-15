@@ -1,9 +1,12 @@
 package com.jdev.h2t_shop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -14,7 +17,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @NotNull
+    @NotBlank
     String username;
+    @NotNull
+    @NotBlank
     String password;
     String address;
     String fullname;
@@ -27,4 +34,14 @@ public class User {
     List<Order> orders;
     @OneToMany(mappedBy = "user")
     List<Rating> ratings;
+    Instant createdAt;
+    Instant updatedAt;
+    @PrePersist
+    void prePersist() {
+        createdAt = Instant.now();
+    }
+    @PreUpdate
+    void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }
