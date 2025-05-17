@@ -38,8 +38,20 @@
 
         <!-- Ảnh sản phẩm -->
         <div>
-            <label class="block font-medium mb-1">Ảnh sản phẩm</label>
-            <input type="file" name="imageFile" class="w-full border border-gray-300 rounded px-4 py-2" />
+            <label class="block font-medium mb-1">Ảnh sản phẩm 1</label>
+            <input type="file" name="imageFile1" class="w-full border border-gray-300 rounded px-4 py-2" />
+        </div>
+        <div>
+            <label class="block font-medium mb-1">Ảnh sản phẩm 2</label>
+            <input type="file" name="imageFile2" class="w-full border border-gray-300 rounded px-4 py-2" />
+        </div>
+        <div>
+            <label class="block font-medium mb-1">Ảnh sản phẩm 3</label>
+            <input type="file" name="imageFile3" class="w-full border border-gray-300 rounded px-4 py-2" />
+        </div>
+        <div>
+            <label class="block font-medium mb-1">Ảnh sản phẩm 4</label>
+            <input type="file" name="imageFile4" class="w-full border border-gray-300 rounded px-4 py-2" />
         </div>
 
         <!-- Màu sắc -->
@@ -47,9 +59,9 @@
             <label class="block font-medium mb-1">Màu sắc</label>
             <form:select path="productDetails.color.id" cssClass="w-full border border-gray-300 rounded px-4 py-2">
                 <form:option value="" label="-- Chọn màu --" />
-                <c:forEach var="s" items="${colors}">
-                    <option value="${s.id}">
-                         ${s.name}
+                <c:forEach var="s" items="${colors}" varStatus="loop">
+                    <option value="${s.id}" ${loop.index == 0 ? 'selected' : ''}>
+                            ${s.name}
                     </option>
                 </c:forEach>
             </form:select>
@@ -60,8 +72,8 @@
             <label class="block font-medium mb-1">Kích cỡ</label>
             <form:select path="productDetails.size.id" cssClass="w-full border border-gray-300 rounded px-4 py-2">
                 <form:option value="" label="-- Chọn kích cỡ --" />
-                <c:forEach var="s" items="${sizes}">
-                    <option value="${s.id}">
+                <c:forEach var="s" items="${sizes}" varStatus="loop">
+                    <option value="${s.id}" ${loop.index == 0 ? 'selected' : ''}>
                             ${s.name}
                     </option>
                 </c:forEach>
@@ -73,8 +85,8 @@
             <label class="block font-medium mb-1">Thể loại</label>
             <form:select path="category.id" cssClass="w-full border border-gray-300 rounded px-4 py-2">
                 <form:option value="" label="-- Chọn thể loại --" />
-                <c:forEach var="s" items="${categories}">
-                    <option value="${s.id}">
+                <c:forEach var="s" items="${categories}" varStatus="loop">
+                    <option value="${s.id}" ${loop.index == 0 ? 'selected' : ''}>
                             ${s.name}
                     </option>
                 </c:forEach>

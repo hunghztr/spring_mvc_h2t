@@ -22,8 +22,8 @@
 
         <form:select path="sale.id" cssClass="w-full border border-gray-300 rounded px-4 py-2">
             <option value="">-- Chọn khuyến mãi --</option>
-            <c:forEach var="s" items="${sales}">
-                <option value="${s.id}">
+            <c:forEach var="s" items="${sales}" varStatus="loop">
+                <option value="${s.id}" ${loop.index == 0 ? 'selected' : ''}>
                     <c:choose>
                         <c:when test="${s.freeship}">Freeship</c:when>
                         <c:otherwise>Không Freeship</c:otherwise>

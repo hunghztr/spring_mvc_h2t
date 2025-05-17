@@ -16,7 +16,8 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    double total;
+    int total;
+    int price;
     @OneToOne
     @JoinColumn(name = "user_id")
     User user;

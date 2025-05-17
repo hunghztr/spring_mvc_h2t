@@ -46,14 +46,19 @@
         </div>
 
         <!-- Ảnh sản phẩm -->
-        <div>
-            <label class="block font-medium mb-1">Ảnh sản phẩm</label>
-            <input type="file" name="imageFile" class="w-full border border-gray-300 rounded px-4 py-2" />
+        <div class="mb-4">
+            <strong>Hình ảnh:</strong><br/>
+            <c:if test="${not empty product.images}">
+                <div class="flex flex-wrap gap-4 mt-2">
+                    <c:forEach var="img" items="${product.images}">
+                        <img src="/images/products/${img.name}" class="w-24 h-24 object-cover rounded shadow" alt="Ảnh sản phẩm"/>
+                    </c:forEach>
+                </div>
+            </c:if>
+            <c:if test="${empty product.images}">
+                <span class="text-red-500">Không có ảnh</span>
+            </c:if>
         </div>
-        <c:if test="${not empty product.image}">
-            <img src="/images/products/${product.image.name}" alt="Ảnh sản phẩm"
-                 class="w-48 mt-2 rounded shadow border border-gray-300"/>
-        </c:if>
 
         <!-- Màu sắc -->
         <div>

@@ -34,7 +34,7 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
-    public Color getyName(String name) {
+    public Color getbyName(String name) {
         return colorRepository.findByName(name);
     }
 

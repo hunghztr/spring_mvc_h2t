@@ -32,4 +32,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public ProductDetail getById(int id) {
         return productDetailRepository.findById(id).get();
     }
+
+    @Override
+    public long count() {
+        return productDetailRepository.count();
+    }
 }

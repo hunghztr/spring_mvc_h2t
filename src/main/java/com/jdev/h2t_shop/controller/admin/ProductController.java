@@ -62,14 +62,15 @@ public class ProductController {
     }
     @PostMapping("/create")
     public String postCreate(@ModelAttribute("product") Product product,
-                             @RequestParam("imageFile") MultipartFile file){
-        if (file.getSize() > 0) {
-            String image = this.upLoadService.handleUpLoadFile(file, "products");
-            Image img = new Image();
-            img.setName(image);
-            imageService.create(img);
-            product.setImage(img);
-        }
+                             @RequestParam("imageFile1") MultipartFile file1,
+                             @RequestParam("imageFile2") MultipartFile file2,
+                             @RequestParam("imageFile3") MultipartFile file3,
+                             @RequestParam("imageFile4") MultipartFile file4){
+        productService.create(product);
+        productService.saveImage(file1,product);
+        productService.saveImage(file2,product);
+        productService.saveImage(file3,product);
+        productService.saveImage(file4,product);
         productService.create(product);
         return "redirect:/admin/product/";
     }
@@ -92,7 +93,7 @@ public class ProductController {
             product.setProductDetails(detail);
         }
         if(product.getProductDetails().getColor() == null){
-            Color color = colorService.getyName("none");
+            Color color = colorService.getbyName("none");
             product.getProductDetails().setColor(color);
         }
         if(product.getProductDetails().getSize() == null){
@@ -110,16 +111,8 @@ public class ProductController {
         return "admin/product/update";
     }
     @PostMapping("/update")
-    public String postUpdate(@ModelAttribute("product") Product product,
-                             @RequestParam("imageFile") MultipartFile file){
-        if (file.getSize() > 0) {
-            String image = this.upLoadService.handleUpLoadFile(file, "products");
-            Image img = new Image();
-            img.setName(image);
-            imageService.create(img);
-            product.setImage(img);
-        }
-        productService.update(product);
+    public String postUpdate(@ModelAttribute("product") Product product){
+        productService.create(product);
         return "redirect:/admin/product/";
     }
     @PostMapping("/delete/{id}")

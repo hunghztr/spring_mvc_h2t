@@ -17,8 +17,9 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String name;
-    @OneToMany(mappedBy = "image")
-    List<Product> products;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    Product product;
     Instant createdAt;
     Instant updatedAt;
     @PrePersist

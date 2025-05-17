@@ -9,6 +9,6 @@ public interface ColorService {
     Color create(Color color);
     Color getById(int id);
     List<Color> getAll();
-    Color getyName(String name);
+    Color getbyName(String name);
     long count();
 }

@@ -1,5 +1,6 @@
 package com.jdev.h2t_shop.config;
 
+import com.jdev.h2t_shop.model.User;
 import com.jdev.h2t_shop.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,6 +48,14 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         if (session == null) {
             return;
         }
+        User user = userService.getUserByUsername(authentication.getName());
+        session.setAttribute("id", user.getId());
+        session.setAttribute("username", user.getUsername());
+        int sum = 0;
+        if(user.getCart() != null && user.getCart().getId() != null){
+            sum = user.getCart().getId();
+        }
+        session.setAttribute("sum", sum);
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 
 

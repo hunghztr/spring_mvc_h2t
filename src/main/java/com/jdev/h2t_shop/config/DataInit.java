@@ -17,6 +17,7 @@ public class DataInit implements CommandLineRunner {
     private final SizeService sizeService;
     private final PasswordEncoder passwordEncoder;
     private final SaleService saleService;
+    private final ProductDetailService productDetailService;
 
     public DataInit(UserService userService,
                     PasswordEncoder passwordEncoder,
@@ -24,7 +25,8 @@ public class DataInit implements CommandLineRunner {
                     CategoryService categoryService,
                     ColorService colorService,
                     SizeService sizeService,
-                    SaleService saleService) {
+                    SaleService saleService,
+                    ProductDetailService productDetailService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
@@ -32,6 +34,7 @@ public class DataInit implements CommandLineRunner {
         this.colorService = colorService;
         this.sizeService = sizeService;
         this.saleService = saleService;
+        this.productDetailService = productDetailService;
     }
 
     @Override
@@ -71,6 +74,13 @@ public class DataInit implements CommandLineRunner {
             size.setName("none");
             sizeService.create(size);
             System.out.println("Size created!");
+        }
+        if(productDetailService.count() == 0L){
+            ProductDetail detail = new ProductDetail();
+            detail.setColor(colorService.getbyName("none"));
+            detail.setSize(sizeService.getByName("none"));
+            productDetailService.create(detail);
+            System.out.println("ProductDetail created!");
         }
         if (userService.getUserByUsername("ad") == null) {
             User admin = new User();

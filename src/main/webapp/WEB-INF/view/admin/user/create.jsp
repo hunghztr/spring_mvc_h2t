@@ -42,8 +42,8 @@
 
         <form:select path="role.id" cssClass="w-full border border-gray-300 rounded px-4 py-2">
             <option value="">-- Chọn vai trò --</option>
-            <c:forEach var="s" items="${roles}">
-                <option value="${s.id}">
+            <c:forEach var="s" items="${roles}" varStatus="loop">
+                <option value="${s.id}" ${loop.index == 0 ? 'selected' : ''}>
                    ${s.name}
                 </option>
             </c:forEach>

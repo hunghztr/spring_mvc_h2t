@@ -20,9 +20,8 @@ public class Product {
     int quantity;
     String description;
     double price;
-    @ManyToOne
-    @JoinColumn(name = "image_id")
-    Image image;
+    @OneToMany(mappedBy = "product")
+    List<Image> images;
     @ManyToOne
     @JoinColumn(name = "category_id")
     Category category;

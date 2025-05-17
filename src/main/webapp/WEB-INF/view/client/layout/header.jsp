@@ -54,15 +54,24 @@
                                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h11l-1.5-7M7 13h10"
                         />
                     </svg>
-                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">0</span>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">${sessionScope.sum}</span>
                 </a>
 
                 <!-- Avatar -->
                 <div>
-                    <a href="/login"
-                       class="text-sm font-medium text-gray-700 hover:text-primary px-4 py-2 rounded-md border border-gray-300 hover:border-primary transition">
-                        Đăng nhập
-                    </a>
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.username}">
+            <span class="text-sm font-medium text-gray-700 px-4 py-2 rounded-md border border-gray-300">
+                Xin chào, ${sessionScope.username}
+            </span>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/login"
+                               class="text-sm font-medium text-gray-700 hover:text-primary px-4 py-2 rounded-md border border-gray-300 hover:border-primary transition">
+                                Đăng nhập
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>

@@ -16,7 +16,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    double total;
+    int total;
+    int price;
     String note;
     String method;
     boolean isCompleted;

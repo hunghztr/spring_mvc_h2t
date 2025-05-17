@@ -50,7 +50,7 @@
             <c:forEach var="p" items="${orders.content}">
                 <tr class="border-b hover:bg-gray-50">
                     <td class="py-2 px-4">${p.id}</td>
-                    <td class="py-2 px-4">${p.total}</td>
+                    <td class="py-2 px-4">${p.price}</td>
                     <td class="py-2 px-4 font-semibold">
                         <c:choose>
                             <c:when test="${p.completed}">

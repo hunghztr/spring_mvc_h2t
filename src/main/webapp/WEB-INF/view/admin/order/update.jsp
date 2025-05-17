@@ -23,7 +23,7 @@
         </div>
         <div>
             <label class="block font-semibold mb-1">Tổng tiền</label>
-            <form:input path="total" cssClass="w-full border rounded p-2" readonly="true" />
+            <form:input path="price" cssClass="w-full border rounded p-2" readonly="true" />
         </div>
 
         <div>

@@ -32,7 +32,7 @@
             <label class="block font-medium mb-1">Khuyến mãi</label>
             <select name="sale.id" class="w-full border border-gray-300 rounded px-4 py-2">
                 <option value="">-- Chọn khuyến mãi --</option>
-                <c:forEach var="s" items="${sales}">
+                <c:forEach var="s" items="${sales}" varStatus="loop">
                     <option value="${s.id}" <c:if test="${category.sale != null && s.id == category.sale.id}">selected</c:if>>
                         <c:choose>
                             <c:when test="${s.freeship}">Freeship</c:when>

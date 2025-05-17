@@ -8,4 +8,5 @@ public interface ProductDetailService {
     ProductDetail update(ProductDetail productDetail);
     void deleteById(int id);
     ProductDetail getById(int id);
+    long count();
 }
