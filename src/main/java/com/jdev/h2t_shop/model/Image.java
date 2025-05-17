@@ -15,7 +15,7 @@ import java.util.List;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
     String name;
     @OneToMany(mappedBy = "image")
     List<Product> products;

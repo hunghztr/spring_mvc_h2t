@@ -14,7 +14,7 @@ import java.time.Instant;
 public class CartDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
     @ManyToOne
     @JoinColumn(name = "product_id")
     Product product;

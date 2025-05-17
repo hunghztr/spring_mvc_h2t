@@ -15,10 +15,11 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    double price;
+    Integer id;
     double total;
     String note;
+    String method;
+    boolean isCompleted;
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;

@@ -15,7 +15,7 @@ import java.util.List;
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
     boolean isFreeship;
     int discount;
     @OneToMany(mappedBy = "sale")

@@ -14,7 +14,7 @@ import java.time.Instant;
 public class ProductDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
     @OneToOne
     @JoinColumn(name = "product_id")
     Product product;

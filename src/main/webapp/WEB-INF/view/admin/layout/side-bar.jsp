@@ -18,36 +18,36 @@
         </li>
         <li>
             <a href="/admin/product/" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
-                🛍️ <span>Quản lý Sản phẩm</span>
+                🛍️ <span>Sản phẩm</span>
             </a>
         </li>
         <li>
-            <a href="/admin/orders" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
-                📦 <span>Quản lý Đơn hàng</span>
+            <a href="/admin/order/" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
+                📦 <span>Đơn hàng</span>
             </a>
         </li>
         <li>
-            <a href="/admin/categories" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
+            <a href="/admin/category/" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
                 🗂️ <span>Danh mục</span>
             </a>
         </li>
         <li>
-            <a href="/admin/users" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
+            <a href="/admin/user/" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
                 👤 <span>Người dùng</span>
             </a>
         </li>
         <li>
-            <a href="/admin/sizes" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
+            <a href="/admin/size/" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
                 📏 <span>Kích thước</span>
             </a>
         </li>
         <li>
-            <a href="/admin/colors" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
+            <a href="/admin/color/" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
                 🎨 <span>Màu sắc</span>
             </a>
         </li>
         <li>
-            <a href="/admin/sales" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
+            <a href="/admin/sale/" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
                 💸 <span>Khuyến mãi</span>
             </a>
         </li>

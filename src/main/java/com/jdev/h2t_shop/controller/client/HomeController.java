@@ -11,8 +11,9 @@ public class HomeController {
         model.addAttribute("products","");
        return "client/home/home";
     }
-    @GetMapping("/denie")
+    @GetMapping("/deny")
     public String denie(){
-        return "client/error/denie";
+        return "client/auth/denie";
     }
+
 }

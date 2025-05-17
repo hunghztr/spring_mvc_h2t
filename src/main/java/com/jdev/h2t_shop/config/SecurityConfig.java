@@ -52,7 +52,7 @@ public class SecurityConfig {
         http.
         authorizeHttpRequests(authorize -> authorize
                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE).permitAll()
-                        .requestMatchers("/", "/login","/register","/images/**","/denie").permitAll()
+                        .requestMatchers("/", "/login","/register","/images/**","/deny").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
@@ -69,7 +69,7 @@ public class SecurityConfig {
                         .successHandler(successHandler(userService))
                         .permitAll())
 
-        .exceptionHandling(ex -> ex.accessDeniedPage("/denie"));
+        .exceptionHandling(ex -> ex.accessDeniedPage("/deny"));
         return http.build();
     }
 }

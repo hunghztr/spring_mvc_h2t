@@ -15,8 +15,7 @@ import java.util.List;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    double price;
+    Integer id;
     double total;
     @OneToOne
     @JoinColumn(name = "user_id")

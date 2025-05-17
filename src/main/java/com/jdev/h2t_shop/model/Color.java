@@ -15,7 +15,7 @@ import java.util.List;
 public class Color {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
     String name;
     @OneToMany(mappedBy = "color")
     List<ProductDetail> productDetails;
