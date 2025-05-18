@@ -51,6 +51,16 @@
                 💸 <span>Khuyến mãi</span>
             </a>
         </li>
+        <li>
+            <form action="/logout" method="post">
+                <input type="hidden" name="${_csrf.parameterName}"
+                       value="${_csrf.token}" />
+                <button type="submit"
+                        class="flex items-center gap-2 px-3 py-2 rounded hover:bg-orange-600 hover:text-yellow-200 transition">
+                    ↩️ <span>Đăng xuất</span>
+                </button>
+            </form>
+        </li>
     </ul>
 
     <!-- Footer -->

@@ -33,14 +33,6 @@
             + Tạo mới
         </a>
 
-        <!-- Form tìm kiếm -->
-        <form action="/admin/size/" method="get" class="flex space-x-2">
-            <input type="text" name="keyword" placeholder="Tìm theo tên..."
-                   class="border rounded p-2 w-64" value="${keyword}" />
-            <button type="submit" class="bg-primary text-white px-3 py-2 rounded hover:bg-blue-600">
-                Tìm
-            </button>
-        </form>
     </div>
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">

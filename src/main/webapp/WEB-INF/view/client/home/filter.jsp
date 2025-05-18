@@ -6,7 +6,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Trang chủ</title>
+    <title>Sản phẩm</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -23,11 +23,7 @@
 <body class="flex flex-col min-h-screen pt-16">
 <jsp:include page="../layout/header.jsp" />
 <main class="flex-grow">
-    <!-- Banner -->
-    <div class="w-full">
-        <img src="/images/banner.png" alt="Banner"
-             class="w-full h-auto object-cover" />
-    </div>
+
     <jsp:include page="../layout/products.jsp" />
 </main>
 

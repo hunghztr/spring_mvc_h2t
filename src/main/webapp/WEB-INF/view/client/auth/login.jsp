@@ -21,7 +21,7 @@
         }
     </script>
 </head>
-<body class="min-h-screen bg-white">
+<body class="min-h-screen bg-white pt-16">
 <jsp:include page="../layout/header.jsp" />
 <div class = "flex">
 <!-- Left Side (Background or Image) -->

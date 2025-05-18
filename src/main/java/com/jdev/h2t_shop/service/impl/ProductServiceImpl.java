@@ -1,10 +1,7 @@
 package com.jdev.h2t_shop.service.impl;
 
 import com.jdev.h2t_shop.model.*;
-import com.jdev.h2t_shop.repository.ColorRepository;
-import com.jdev.h2t_shop.repository.ProductDetailRepository;
-import com.jdev.h2t_shop.repository.ProductRepository;
-import com.jdev.h2t_shop.repository.SizeRepository;
+import com.jdev.h2t_shop.repository.*;
 import com.jdev.h2t_shop.service.CategoryService;
 import com.jdev.h2t_shop.service.ImageService;
 import com.jdev.h2t_shop.service.ProductService;
@@ -23,23 +20,18 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductDetailRepository productDetailRepository;
-    private final ColorRepository colorRepository;
-    private final SizeRepository sizeRepository;
-    private final ImageService imageService;
+
+    private final ImageRepository imageRepository;
     private final UpLoadService upLoadService;
     private final CategoryService categoryService;
     public ProductServiceImpl(ProductRepository productRepository,
                               ProductDetailRepository productDetailRepository,
-                              ColorRepository colorRepository,
-                              SizeRepository sizeRepository,
-                              ImageService imageService,
+                              ImageRepository imageRepository,
                               UpLoadService upLoadService,
                               CategoryService categoryService) {
         this.productRepository = productRepository;
         this.productDetailRepository = productDetailRepository;
-        this.colorRepository = colorRepository;
-        this.sizeRepository = sizeRepository;
-        this.imageService = imageService;
+        this.imageRepository = imageRepository;
         this.upLoadService = upLoadService;
         this.categoryService = categoryService;
     }
@@ -56,63 +48,22 @@ public class ProductServiceImpl implements ProductService {
         if(product.getCategory().getId() == null){
             product.setCategory(categoryService.findByName("none"));
         }
-
-        if(product.getProductDetails() == null){
-            product.setProductDetails(productDetailRepository.findById(1).get());
             return productRepository.save(product);
-        }
-        else {
-            ProductDetail detail = product.getProductDetails();
-            if (product.getProductDetails().getColor().getId() != null) {
-                Color c = colorRepository.findById(product.getProductDetails().getColor().getId()).get();
-                detail.setColor(c);
-                product.getProductDetails().setColor(null);
-            }
-            if (product.getProductDetails().getSize().getId() != null) {
-                Size s = sizeRepository.findById(product.getProductDetails().getSize().getId()).get();
-                detail.setSize(s);
-                product.getProductDetails().setSize(null);
-            }
-            product.setProductDetails(null);
-            Product get = productRepository.save(product);
-            detail.setProduct(get);
-            productDetailRepository.save(detail);
-            return get;
-        }
+
     }
 
     @Override
     public Product update(Product product) {
-        if(product.getCategory().getId() == null){
-            product.setCategory(categoryService.findByName("none"));
-        }
-        ProductDetail detail = new ProductDetail();
-        if(productDetailRepository.findById(product.getProductDetails().getId()).isPresent())
-             detail = productDetailRepository.findById(product.getProductDetails().getId()).get();
-
-        if(product.getProductDetails().getColor().getId() != null){
-            Color c = colorRepository.findById(product.getProductDetails().getColor().getId()).get();
-            detail.setColor(c);
-            product.getProductDetails().setColor(null);
-        }
-        if(product.getProductDetails().getSize().getId() != null){
-            Size s = sizeRepository.findById(product.getProductDetails().getSize().getId()).get();
-            detail.setSize(s);
-            product.getProductDetails().setSize(null);
-        }
-        product.setProductDetails(null);
-        Product get = productRepository.save(product);
-        detail.setProduct(get);
-        productDetailRepository.save(detail);
-        return get;
+        return null;
     }
 
     @Override
     public void deleteById(int id) {
         Product product = this.getById(id);
-        ProductDetail detail = product.getProductDetails();
-        detail.setProduct(null);
-        productDetailRepository.save(detail);
+        List<ProductDetail> detail = product.getProductDetails();
+        detail.forEach(i -> productDetailRepository.deleteById(i.getId()));
+        List<Image> images = productRepository.findById(id).get().getImages();
+        images.forEach(i -> imageRepository.deleteById(i.getId()));
         productRepository.deleteById(id);
     }
 
@@ -123,8 +74,34 @@ public class ProductServiceImpl implements ProductService {
             Image img = new Image();
             img.setName(image);
             img.setProduct(product);
-            imageService.create(img);
+            imageRepository.save(img);
         }
+    }
+
+    @Override
+    public List<Product> getAllByCategory(int categoryId) {
+        return productRepository.findAllByCategoryId(categoryId);
+    }
+
+    @Override
+    public Page<Product> getPageByCategory(int categoryId, Pageable pageable) {
+        Category category = categoryService.findById(categoryId);
+        return productRepository.findAllByCategory(category, pageable);
+    }
+
+    @Override
+    public Page<Product> getPageByPriceLessThan(double price, Pageable pageable) {
+        return productRepository.findAllByPriceLessThan(price, pageable);
+    }
+
+    @Override
+    public Page<Product> getPageByPriceBetween(double price1,double price2 ,Pageable pageable) {
+        return productRepository.findAllByPriceBetween(price1,price2,pageable);
+    }
+
+    @Override
+    public Page<Product> getPageByDiscountedPriceBetween(double price1, double price2, Pageable pageable) {
+        return productRepository.findByDiscountedPriceBetween(price1,price2,pageable);
     }
 
 }

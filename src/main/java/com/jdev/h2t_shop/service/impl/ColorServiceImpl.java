@@ -1,7 +1,9 @@
 package com.jdev.h2t_shop.service.impl;
 
 import com.jdev.h2t_shop.model.Color;
+import com.jdev.h2t_shop.model.Size;
 import com.jdev.h2t_shop.repository.ColorRepository;
+import com.jdev.h2t_shop.repository.ProductDetailRepository;
 import com.jdev.h2t_shop.service.ColorService;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +12,18 @@ import java.util.List;
 @Service
 public class ColorServiceImpl implements ColorService {
     private final ColorRepository colorRepository;
-    public ColorServiceImpl(ColorRepository colorRepository) {
+    private final ProductDetailRepository productDetailRepository;
+    public ColorServiceImpl(ColorRepository colorRepository,
+                            ProductDetailRepository productDetailRepository) {
         this.colorRepository = colorRepository;
+        this.productDetailRepository = productDetailRepository;
     }
     @Override
     public void deleteById(int id) {
+        Color color = colorRepository.findById(id).get();
+        var detail = productDetailRepository.findAllByColor(color);
+        detail.forEach(i -> i.setColor(colorRepository.findByName("none")));
+        productDetailRepository.saveAll(detail);
         colorRepository.deleteById(id);
     }
 

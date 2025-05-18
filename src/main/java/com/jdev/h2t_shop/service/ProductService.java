@@ -16,4 +16,9 @@ public interface ProductService {
     Product update(Product product);
     void deleteById(int id);
     void saveImage(MultipartFile file, Product product);
+    List<Product> getAllByCategory(int categoryId);
+    Page<Product> getPageByCategory(int categoryId, Pageable pageable);
+    Page<Product> getPageByPriceLessThan(double price, Pageable pageable);
+    Page<Product> getPageByPriceBetween(double price1,double price2, Pageable pageable);
+    Page<Product> getPageByDiscountedPriceBetween(double price1,double price2, Pageable pageable);
 }

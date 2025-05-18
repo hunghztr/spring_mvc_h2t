@@ -15,7 +15,8 @@ public class ProductDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @OneToOne
+    Integer total;
+    @ManyToOne
     @JoinColumn(name = "product_id")
     Product product;
     @ManyToOne

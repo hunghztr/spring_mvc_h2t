@@ -17,7 +17,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String name;
-    int quantity;
+    @Column(columnDefinition = "TEXT")
     String description;
     double price;
     @OneToMany(mappedBy = "product")
@@ -25,8 +25,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     Category category;
-    @OneToOne(mappedBy = "product")
-    ProductDetail productDetails;
+    @OneToMany(mappedBy = "product")
+    List<ProductDetail> productDetails;
     @OneToMany(mappedBy = "product")
     List<OrderDetail> order_details;
     @OneToMany(mappedBy = "product")

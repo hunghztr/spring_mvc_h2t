@@ -23,16 +23,8 @@
             <form:input path="createdAt" cssClass="hidden w-full border border-gray-300 rounded px-4 py-2" />
         </div>
         <div>
-            <form:input path="productDetails.id" cssClass="hidden w-full border border-gray-300 rounded px-4 py-2" />
-        </div>
-        <div>
             <label class="block font-medium mb-1">Tên sản phẩm</label>
             <form:input path="name" cssClass="w-full border border-gray-300 rounded px-4 py-2" />
-        </div>
-
-        <div>
-            <label class="block font-medium mb-1">Số lượng</label>
-            <form:input path="quantity" type="number" cssClass="w-full border border-gray-300 rounded px-4 py-2" />
         </div>
 
         <div>
@@ -58,31 +50,6 @@
             <c:if test="${empty product.images}">
                 <span class="text-red-500">Không có ảnh</span>
             </c:if>
-        </div>
-
-        <!-- Màu sắc -->
-        <div>
-            <label class="block font-medium mb-1">Màu sắc</label>
-            <form:select path="productDetails.color.id" cssClass="w-full border border-gray-300 rounded px-4 py-2">
-                <form:option value="" label="-- Chọn màu --" />
-                <c:forEach var="s" items="${colors}">
-                    <option value="${s.id}" <c:if test="${product.productDetails != null && product.productDetails.color != null && s.id == product.productDetails.color.id}">selected</c:if>>
-                         ${s.name}
-                    </option>
-                </c:forEach>
-            </form:select>
-        </div>
-
-        <div>
-            <label class="block font-medium mb-1">Kích cỡ</label>
-            <form:select path="productDetails.size.id" cssClass="w-full border border-gray-300 rounded px-4 py-2">
-                <form:option value="" label="-- Chọn kích cỡ --" />
-                <c:forEach var="s" items="${sizes}">
-                    <option value="${s.id}" <c:if test="${product.productDetails != null && product.productDetails.size != null && s.id == product.productDetails.size.id}">selected</c:if>>
-                            ${s.name}
-                    </option>
-                </c:forEach>
-            </form:select>
         </div>
 
         <div>

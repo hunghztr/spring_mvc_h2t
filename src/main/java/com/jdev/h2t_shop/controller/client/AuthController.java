@@ -1,6 +1,7 @@
 package com.jdev.h2t_shop.controller.client;
 
 import com.jdev.h2t_shop.model.User;
+import com.jdev.h2t_shop.service.CategoryService;
 import com.jdev.h2t_shop.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -16,17 +17,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthController {
     private final UserService userService;
-    public AuthController(UserService userService) {
+    private final CategoryService categoryService;
+    public AuthController(UserService userService,
+                          CategoryService categoryService) {
         this.userService = userService;
+        this.categoryService = categoryService;
     }
     @GetMapping("/login")
     public String login(Model model){
+        model.addAttribute("categories",categoryService.getAll());
         model.addAttribute("user", new User());
         return "client/auth/login";
     }
 
     @GetMapping("/register")
     public String register(Model model){
+        model.addAttribute("categories",categoryService.getAll());
         model.addAttribute("user", new User());
         return "client/auth/register";
     }

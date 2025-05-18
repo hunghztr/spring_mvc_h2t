@@ -48,7 +48,6 @@
             <tr>
                 <th class="py-2 px-4 text-left">Id</th>
                 <th class="py-2 px-4 text-left">Tên</th>
-                <th class="py-2 px-4 text-left">Số lượng</th>
                 <th class="py-2 px-4 text-left">Giá</th>
                 <th class="py-2 px-4 text-left">Danh mục</th>
                 <th class="py-2 px-4 text-left">Action</th>
@@ -59,7 +58,6 @@
                 <tr class="border-b hover:bg-gray-50">
                     <td class="py-2 px-4">${p.id}</td>
                     <td class="py-2 px-4">${p.name}</td>
-                    <td class="py-2 px-4">${p.quantity}</td>
                     <td class="py-2 px-4 text-green-600 font-semibold">${p.price}</td>
                     <td class="py-2 px-4">${p.category.name}</td>
                     <td class="py-2 px-4 space-x-2">
@@ -71,6 +69,7 @@
                                     onclick="return confirm('Bạn có chắc muốn xóa?');">Xóa</button>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </form>
+                        <a href="/admin/product/add-detail/${p.id}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-800 text-sm">Thêm chi tiết</a>
                     </td>
                 </tr>
             </c:forEach>

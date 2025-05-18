@@ -25,36 +25,10 @@
             <strong>Mô tả:</strong> ${product.description}
         </div>
         <div class="mb-4">
-            <strong>Số lượng:</strong> ${product.quantity}
-        </div>
-        <div class="mb-4">
             <strong>Giá:</strong> <span class="text-green-600 font-semibold">${product.price}</span>
         </div>
         <div class="mb-4">
             <strong>Danh mục:</strong> ${product.category.name}
-        </div>
-        <div class="mb-4">
-            <strong>Màu sắc:</strong>
-            <c:choose>
-                <c:when test="${not empty product.productDetails}">
-                    ${product.productDetails.color.name}
-                </c:when>
-                <c:otherwise>
-                    <span class="text-gray-500 italic">Không có thông tin</span>
-                </c:otherwise>
-            </c:choose>
-        </div>
-
-        <div class="mb-4">
-            <strong>Kích cỡ:</strong>
-            <c:choose>
-                <c:when test="${not empty product.productDetails}">
-                    ${product.productDetails.size.name}
-                </c:when>
-                <c:otherwise>
-                    <span class="text-gray-500 italic">Không có thông tin</span>
-                </c:otherwise>
-            </c:choose>
         </div>
 
         <div class="mb-4">
@@ -70,6 +44,22 @@
                 <span class="text-red-500">Không có ảnh</span>
             </c:if>
         </div>
+        <c:if test="${not empty details}">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <c:forEach var="p" items="${details}">
+                    <c:if test="${not empty p.color or not empty p.size}">
+                        <div class="border rounded-xl shadow-md p-4 bg-white">
+                            <p><span class="font-semibold">Màu sắc:</span> <c:out value="${p.color.name}" /></p>
+                            <p><span class="font-semibold">Kích cỡ:</span> <c:out value="${p.size.name}" /></p>
+                            <p><span class="font-semibold">Số lượng:</span> <c:out value="${p.total}" /></p>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </c:if>
+
+
+
         <div class="mb-4">
             <strong>Ngày tạo:</strong>
             <fmt:formatDate value="${createdAt}" pattern="dd/MM/yyyy HH:mm:ss"/>

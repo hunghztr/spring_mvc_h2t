@@ -25,20 +25,17 @@ public class ProductController {
     private final CategoryService categoryService;
     private final SizeService sizeService;
     private final ColorService colorService;
-    private final ImageService imageService;
-    private final UpLoadService upLoadService;
+    private final ProductDetailService productDetailService;
     public ProductController(ProductService productService,
                              CategoryService categoryService,
                              SizeService sizeService,
                              ColorService colorService,
-                             UpLoadService upLoadService,
-                             ImageService imageService) {
+                             ProductDetailService productDetailService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.sizeService = sizeService;
         this.colorService = colorService;
-        this.upLoadService = upLoadService;
-        this.imageService = imageService;
+        this.productDetailService = productDetailService;
     }
     @GetMapping("/")
     public String home(Model model,@RequestParam(value = "keyword", required = false) String keyword,
@@ -56,8 +53,6 @@ public class ProductController {
     public String create(Model model){
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("sizes", sizeService.getAll());
-        model.addAttribute("colors", colorService.getAll());
         return "admin/product/create";
     }
     @PostMapping("/create")
@@ -77,9 +72,11 @@ public class ProductController {
     @GetMapping("/view/{id}")
     public String view(@PathVariable("id") int id, Model model){
         Product product = productService.getById(id);
+        var details = product.getProductDetails();
         Date createdAt = Date.from(product.getCreatedAt());
         Date updatedAt = product.getUpdatedAt() != null ? Date.from(product.getUpdatedAt()) : null;
         model.addAttribute("product",product);
+        model.addAttribute("details",details);
         model.addAttribute("createdAt", createdAt);
         model.addAttribute("updatedAt", updatedAt);
         return "admin/product/view";
@@ -87,27 +84,13 @@ public class ProductController {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") int id, Model model){
         Product product = productService.getById(id);
-        if(product.getProductDetails() == null){
-            ProductDetail detail = new ProductDetail();
-            detail.setId(0);
-            product.setProductDetails(detail);
-        }
-        if(product.getProductDetails().getColor() == null){
-            Color color = colorService.getbyName("none");
-            product.getProductDetails().setColor(color);
-        }
-        if(product.getProductDetails().getSize() == null){
-            Size size = sizeService.getByName("none");
-            product.getProductDetails().setSize(size);
-        }
+
         if(product.getCategory() == null){
             Category category = categoryService.findByName("none");
             product.setCategory(category);
         }
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("sizes", sizeService.getAll());
-        model.addAttribute("colors", colorService.getAll());
         return "admin/product/update";
     }
     @PostMapping("/update")
@@ -118,6 +101,27 @@ public class ProductController {
     @PostMapping("/delete/{id}")
     public String postDelete(@PathVariable("id") int id){
         productService.deleteById(id);
+        return "redirect:/admin/product/";
+    }
+    @GetMapping("/add-detail/{id}")
+    public String addDetail(@PathVariable("id") int id, Model model){
+        Product product = productService.getById(id);
+        ProductDetail detail = new ProductDetail();
+        detail.setColor(colorService.getbyName("none"));
+        detail.setSize(sizeService.getByName("none"));
+        model.addAttribute("product",product);
+        model.addAttribute("sizes",sizeService.getAll());
+        model.addAttribute("colors",colorService.getAll());
+        model.addAttribute("detail",detail);
+        return "admin/product/add-detail";
+    }
+    @PostMapping("/add-detail")
+    public String postAddDetail(@ModelAttribute("detail") ProductDetail detail,
+                                @RequestParam("id") int idProduct){
+        detail.setId(0);
+        Product product = productService.getById(idProduct);
+        detail.setProduct(product);
+        productDetailService.create(detail);
         return "redirect:/admin/product/";
     }
 }
