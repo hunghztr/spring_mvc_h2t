@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "product_details")
@@ -25,6 +26,12 @@ public class ProductDetail {
     @ManyToOne
     @JoinColumn(name = "size_id")
     Size size;
+    @OneToMany(mappedBy = "productDetail")
+    List<OrderDetail> order_details;
+    @OneToMany(mappedBy = "productDetail")
+    List<CartDetail> cart_details;
+    @OneToMany(mappedBy = "productDetail")
+    List<Rating> ratings;
     Instant createdAt;
     Instant updatedAt;
     @PrePersist

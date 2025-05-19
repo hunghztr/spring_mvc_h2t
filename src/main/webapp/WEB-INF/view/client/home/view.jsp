@@ -47,8 +47,13 @@
 
             <!-- Thông tin sản phẩm -->
             <div>
+                <c:if test="${not empty message}">
+                    <div class="text-red-600 font-medium mt-4">
+                            ${message}
+                    </div>
+                </c:if>
                 <h1 class="text-2xl font-semibold mb-2">${product.name}</h1>
-                <form action="/add-cart" method="post" class="mt-10">
+                <form action="/add-cart" method="get">
                     <input value="${product.id}" name="productId" class="hidden">
                     <div class="mb-4">
                         <c:choose>
@@ -85,19 +90,21 @@
                     <div class="mb-4" id="sizeSelector">
                         <p class="font-medium mb-1">Chọn size:</p>
                         <div class="flex gap-2">
-                            <c:forEach var="size" items="${sizes}">
+                            <c:forEach var="size" items="${sizes}" varStatus="sizeStatus">
                                 <label class="cursor-pointer border border-gray-500 px-3 py-1 rounded hover:border-[#e85205] flex items-center">
                                     <input
                                             type="radio"
                                             name="size"
                                             value="${size.name}"
                                             class="hidden peer"
+                                        ${sizeStatus.index == 0 ? "checked required" : ""}
                                     />
                                     <span class="peer-checked:border-[#e85205] peer-checked:text-[#e85205]">
-                    <c:out value="${size.name}"/>
-                </span>
+            <c:out value="${size.name}"/>
+        </span>
                                 </label>
                             </c:forEach>
+
                         </div>
                     </div>
 
@@ -106,17 +113,18 @@
                     <div class="mb-4" id="colorSelector">
                         <p class="font-medium mb-1">Màu sắc:</p>
                         <div class="flex gap-2">
-                            <c:forEach var="color" items="${colors}">
+                            <c:forEach var="color" items="${colors}" varStatus="status">
                                 <label class="cursor-pointer border border-gray-500 px-3 py-1 rounded hover:border-[#e85205] flex items-center">
                                     <input
                                             type="radio"
                                             name="color"
                                             value="${color.name}"
                                             class="hidden peer"
+                                        ${status.index == 0 ? "checked required" : ""}
                                     />
                                     <span class="peer-checked:border-[#e85205] peer-checked:text-[#e85205]">
-                    <c:out value="${color.name}"/>
-                </span>
+            <c:out value="${color.name}"/>
+        </span>
                                 </label>
                             </c:forEach>
                         </div>
@@ -126,33 +134,40 @@
                     <!-- Nút hành động -->
                     <div class="flex items-center gap-4 mt-6">
                         <button id="btnDecrease"
+                                type="button"
                                 class="border border-gray-400 px-4 py-2 rounded hover:border-[#e85205] hover:text-[#e85205]">
                             -
                         </button>
 
                         <!-- Hiển thị số lượng -->
-                        <span id="quantity" name="count" class="font-semibold text-lg">1</span>
-
-                        <button id="btnIncrease" class="bg-[#e85205] text-white px-4 py-2 rounded hover:bg-opacity-80">
+                        <input
+                                type="number"
+                                id="quantity"
+                                name="count"
+                                value="1"
+                                min="1"
+                                class="font-semibold text-lg text-center w-16 border rounded"
+                        >
+                        <button id="btnIncrease" type="button" class="bg-[#e85205] text-white px-4 py-2 rounded hover:bg-opacity-80">
                             +
                         </button>
                     </div>
 
 
-                    <button type="submit" id="btnAddToCart"
-                            class="bg-[#e85205] mt-6 text-white px-6 py-2 rounded hover:bg-opacity-80">
+                    <button id="btnAddToCart"
+                            class="bg-[#e85205] mt-6 text-white px-6 py-2 rounded hover:bg-opacity-80 inline-block text-center">
                         Thêm vào giỏ hàng
                     </button>
 
+                </form>
 
-                    <!-- Mô tả -->
+                <!-- Mô tả -->
                     <div class="mt-8">
                         <h2 class="text-lg font-semibold mb-2">Mô tả</h2>
                         <p class="text-sm leading-relaxed">
                             ${product.description}
                         </p>
                     </div>
-                </form>
             </div>
         </div>
     </section>
@@ -219,13 +234,13 @@
 
     btnIncrease.addEventListener('click', () => {
         quantity++;
-        quantitySpan.textContent = quantity;
+        quantitySpan.value = quantity;
     });
 
     btnDecrease.addEventListener('click', () => {
-        if (quantity > 0) {
+        if (quantity > 1) {
             quantity--;
-            quantitySpan.textContent = quantity;
+            quantitySpan.value = quantity;
         }
     });
 </script>

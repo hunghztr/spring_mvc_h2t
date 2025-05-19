@@ -17,6 +17,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product,Integer>, JpaSpecificationExecutor<Product> {
     Page<Product> findAll(Specification<Product> spec, Pageable pageable);
     Page<Product> findAll(Pageable pageable);
+    List<Product> findAllByIdIn(List<Integer> ids);
     Page<Product> findAllByCategory(Category category, Pageable pageable);
     List<Product> findAllByCategoryId(int categoryId);
     Page<Product> findAllByPriceLessThan(double price, Pageable pageable);

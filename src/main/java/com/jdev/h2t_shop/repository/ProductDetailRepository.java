@@ -1,6 +1,7 @@
 package com.jdev.h2t_shop.repository;
 
 import com.jdev.h2t_shop.model.Color;
+import com.jdev.h2t_shop.model.Product;
 import com.jdev.h2t_shop.model.ProductDetail;
 import com.jdev.h2t_shop.model.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,5 @@ import java.util.List;
 public interface ProductDetailRepository extends JpaRepository<ProductDetail, Integer> , JpaSpecificationExecutor<ProductDetail> {
     List<ProductDetail> findAllBySize(Size size);
     List<ProductDetail> findAllByColor(Color color);
+    ProductDetail findBySizeAndColorAndProduct(Size size, Color color, Product product);
 }

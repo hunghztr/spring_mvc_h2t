@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ProductService {
     Page<Product> getAll(Specification<Product> spec, Pageable pageable);
+    List<Product> getAllByIdIn(List<Integer> ids);
     Product getById(int id);
     Product create(Product product);
     Product update(Product product);

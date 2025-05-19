@@ -6,8 +6,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-4">
 
-            <div class="text-xl font-bold text-primary">
-                <a href="/" class="hover:text-primary">H2T</a>
+            <div class="text-xl font-bold text-[#e85205]">
+                <a href="/" class="hover:text-white">H2T</a>
             </div>
 
             <!-- Navigation Menu -->
@@ -69,7 +69,7 @@
                 </div>
 
                 <!-- Cart Icon -->
-                <a href="#" class="relative text-gray-700 hover:text-primary">
+                <a href="/cart" class="relative text-gray-700 hover:text-primary">
                     <svg
                             class="w-6 h-6"
                             fill="none"

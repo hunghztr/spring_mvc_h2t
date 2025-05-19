@@ -2,9 +2,7 @@ package com.jdev.h2t_shop.controller.client;
 
 import com.jdev.h2t_shop.model.*;
 import com.jdev.h2t_shop.service.CategoryService;
-import com.jdev.h2t_shop.service.ColorService;
 import com.jdev.h2t_shop.service.ProductService;
-import com.jdev.h2t_shop.service.SizeService;
 import com.jdev.h2t_shop.service.specification.ProductSpecification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -62,13 +60,7 @@ public class HomeController {
         model.addAttribute("suggestions",suggestions);
         return "client/home/view";
     }
-    @PostMapping("/add-cart")
-    public String addCart(@RequestParam("idProduct") int id,
-                          @RequestParam("size") String size,
-                          @RequestParam("color") String color,
-                          @RequestParam("count") int count){
-        return "/";
-    }
+
     @GetMapping("/filter-cate")
     public String filterCate(Model model,@RequestParam("cid") int cid,
                              @PageableDefault(size = 10, sort = "id",

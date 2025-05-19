@@ -27,12 +27,7 @@ public class Product {
     Category category;
     @OneToMany(mappedBy = "product")
     List<ProductDetail> productDetails;
-    @OneToMany(mappedBy = "product")
-    List<OrderDetail> order_details;
-    @OneToMany(mappedBy = "product")
-    List<CartDetail> cart_details;
-    @OneToMany(mappedBy = "product")
-    List<Rating> ratings;
+
     Instant createdAt;
     Instant updatedAt;
     @PrePersist

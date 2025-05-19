@@ -1,11 +1,9 @@
 package com.jdev.h2t_shop.controller.admin;
 
-import com.jdev.h2t_shop.model.Order;
-import com.jdev.h2t_shop.model.OrderDetail;
-import com.jdev.h2t_shop.model.Product;
-import com.jdev.h2t_shop.model.User;
+import com.jdev.h2t_shop.model.*;
 import com.jdev.h2t_shop.service.OrderDetailService;
 import com.jdev.h2t_shop.service.OrderService;
+import com.jdev.h2t_shop.service.ProductService;
 import com.jdev.h2t_shop.service.specification.OrderSpecification;
 import com.jdev.h2t_shop.service.specification.UserSpecification;
 import org.springframework.data.domain.Pageable;
@@ -22,8 +20,11 @@ import java.util.List;
 @RequestMapping("/admin/order")
 public class OrderController {
     private final OrderService orderService;
-    public OrderController(OrderService orderService) {
+    private final ProductService productService;
+    public OrderController(OrderService orderService,
+                           ProductService productService) {
         this.orderService = orderService;
+        this.productService = productService;
     }
     @GetMapping("/")
     public String home(Model model,@RequestParam(value = "keyword", required = false) String keyword,
@@ -39,8 +40,10 @@ public class OrderController {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") int id, Model model){
         Order order = orderService.getById(id);
-        List<Product> products =
-                order.getOrderDetails().stream().map(od -> od.getProduct()).toList();
+        List<ProductDetail> details =
+                order.getOrderDetails().stream().map(od -> od.getProductDetail()).toList();
+        List<Integer> ids = details.stream().map(i -> i.getProduct().getId()).toList();
+        List<Product> products = productService.getAllByIdIn(ids);
         model.addAttribute("order",order);
         model.addAttribute("products",products);
         return "admin/order/update";

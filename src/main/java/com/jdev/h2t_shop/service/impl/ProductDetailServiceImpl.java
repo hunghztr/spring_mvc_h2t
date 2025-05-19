@@ -1,9 +1,14 @@
 package com.jdev.h2t_shop.service.impl;
 
+import com.jdev.h2t_shop.model.Color;
+import com.jdev.h2t_shop.model.Product;
 import com.jdev.h2t_shop.model.ProductDetail;
+import com.jdev.h2t_shop.model.Size;
 import com.jdev.h2t_shop.repository.ProductDetailRepository;
 import com.jdev.h2t_shop.service.ProductDetailService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductDetailServiceImpl implements ProductDetailService {
@@ -36,5 +41,10 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     @Override
     public long count() {
         return productDetailRepository.count();
+    }
+
+    @Override
+    public ProductDetail getAllBySizeAndColorAndProduct(Size size, Color color, Product product) {
+        return productDetailRepository.findBySizeAndColorAndProduct(size, color, product);
     }
 }
