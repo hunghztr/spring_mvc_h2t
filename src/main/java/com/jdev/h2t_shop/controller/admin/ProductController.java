@@ -37,6 +37,7 @@ public class ProductController {
         this.colorService = colorService;
         this.productDetailService = productDetailService;
     }
+
     @GetMapping("/")
     public String home(Model model,@RequestParam(value = "keyword", required = false) String keyword,
                        @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
