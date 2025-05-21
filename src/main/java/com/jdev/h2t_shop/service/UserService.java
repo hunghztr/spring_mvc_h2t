@@ -18,4 +18,5 @@ public interface UserService {
      void deleteById(int id);
      User getById(int id);
      Page<User> getAll(Specification<User> spec, Pageable pageable);
+     long count();
 }

@@ -83,8 +83,10 @@
                                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h11l-1.5-7M7 13h10"
                         />
                     </svg>
-                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">${sessionScope.sum}</span>
-                </a>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">
+                        ${empty sessionScope.sum ? 0 : sessionScope.sum}
+                    </span>
+                </span> </a>
 
                 <!-- Avatar -->
                 <div class="relative inline-block text-left">

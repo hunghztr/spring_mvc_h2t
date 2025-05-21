@@ -15,4 +15,6 @@ public interface OrderService {
     Order update(Order order);
     Page<Order> getAll(Specification<Order> spec, Pageable pageable);
     void deleteDetails(int id);
+    long count();
+    List<Order> getAllOrders();
 }

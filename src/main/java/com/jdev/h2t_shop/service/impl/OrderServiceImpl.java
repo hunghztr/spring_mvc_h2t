@@ -58,4 +58,14 @@ public class OrderServiceImpl implements OrderService {
         orderDetailRepository.deleteByIdIn(ids);
         this.deleteById(id);
     }
+
+    @Override
+    public long count() {
+        return orderRepository.count();
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
 }

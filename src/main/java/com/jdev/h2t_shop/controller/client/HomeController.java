@@ -50,8 +50,8 @@ public class HomeController {
     @GetMapping("/product/{id}")
     public String detail(@PathVariable("id") int id, Model model){
         Product product = productService.getById(id);
-        List<Color> colors = product.getProductDetails().stream().map(i -> i.getColor()).toList();
-        List<Size> sizes = product.getProductDetails().stream().map(i -> i.getSize()).toList();
+        List<Color> colors = product.getProductDetails().stream().map(i -> i.getColor()).distinct().toList();
+        List<Size> sizes = product.getProductDetails().stream().map(i -> i.getSize()).distinct().toList();
         var suggestions = productService.getAllByCategory(product.getCategory().getId());
         model.addAttribute("categories",categoryService.getAll());
         model.addAttribute("product",product);

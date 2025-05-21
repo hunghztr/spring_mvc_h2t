@@ -51,9 +51,11 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         User user = userService.getUserByUsername(authentication.getName());
         session.setAttribute("id", user.getId());
         session.setAttribute("username", user.getUsername());
+        session.setAttribute("address",user.getAddress());
+        session.setAttribute("fullname",user.getFullname());
         int sum = 0;
         if(user.getCart() != null && user.getCart().getId() != null){
-            sum = user.getCart().getId();
+            sum = user.getCart().getTotal();
         }
         session.setAttribute("sum", sum);
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);

@@ -28,4 +28,5 @@ public interface ProductRepository extends JpaRepository<Product,Integer>, JpaSp
             @Param("maxPrice") double maxPrice,
             Pageable pageable
     );
+    long count();
 }
