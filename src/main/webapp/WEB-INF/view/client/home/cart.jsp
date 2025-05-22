@@ -82,14 +82,14 @@
                         <!-- Quantity -->
                         <form action="update-cart" method="post" class="flex items-center gap-2">
                             <input type="hidden" name="productId" value="${item.id}"/>
-                            <button type="button" name="action" value="decrease"
+                            <button type="button" name="action" value="decrease" id="btnDecrease"
                                     class="w-8 h-8 flex items-center justify-center border border-gray-500 rounded hover:border-orange-500 hover:text-orange-500 text-lg">
                                 -
                             </button>
 
-                            <span class="w-8 text-center text-white">${quantity}</span>
+                            <span class="w-8 text-center text-white" id="count">${quantity}</span>
 
-                            <button type="button" name="action" value="increase"
+                            <button type="button" name="action" value="increase" id="btnIncrease"
                                     class="w-8 h-8 flex items-center justify-center border border-gray-500 rounded hover:border-orange-500 hover:text-orange-500 text-lg">
                                 +
                             </button>

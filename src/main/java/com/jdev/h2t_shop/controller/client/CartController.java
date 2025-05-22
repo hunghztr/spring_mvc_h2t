@@ -1,9 +1,12 @@
 package com.jdev.h2t_shop.controller.client;
 
 import com.jdev.h2t_shop.model.*;
-import com.jdev.h2t_shop.model.dto.ListDto;
 import com.jdev.h2t_shop.service.*;
+import com.jdev.h2t_shop.service.impl.MailService;
+import com.jdev.h2t_shop.service.impl.PayService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,9 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -29,13 +31,15 @@ public class CartController {
     private final CategoryService categoryService;
     private final MailService mailService;
     private final OrderService orderService;
+    private final PayService payService;
     public CartController(CartService cartService,
                           ProductService productService,
                           SizeService sizeService,
                           ColorService colorService, ProductDetailService productDetailService,
                           CategoryService categoryService,
                           MailService mailService,
-                          OrderService orderService) {
+                          OrderService orderService,
+                          PayService payService) {
         this.cartService = cartService;
         this.productService = productService;
         this.sizeService = sizeService;
@@ -44,6 +48,7 @@ public class CartController {
         this.categoryService = categoryService;
         this.mailService = mailService;
         this.orderService = orderService;
+        this.payService = payService;
     }
 
     @GetMapping("/add-cart")
@@ -122,6 +127,14 @@ public class CartController {
                                @RequestParam(value = "note", required = false, defaultValue = "none") String note,
                                @RequestParam(value = "paymentMethod", required = false, defaultValue = "none") String method,
                                HttpSession session) {
+        if(method.equals("VNPAY")){
+            session.setAttribute("fullname",fullname);
+            session.setAttribute("email",email);
+            session.setAttribute("address",address);
+            session.setAttribute("note",note);
+            session.setAttribute("paymentMethod",method);
+            return "redirect:/vnpay";
+        }
         note += ", " + fullname + ", " + email + ", " + address;
         int orderId = cartService.addOrder(note, method, (int) session.getAttribute("id"));
         Order order = orderService.getById(orderId);
@@ -131,6 +144,25 @@ public class CartController {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+        session.setAttribute("sum", 0);
+        return "redirect:/";
+    }
+    @GetMapping("/vnpay")
+    public String paymentVnpay(Model model, HttpSession session){
+        Cart cart = cartService.getByUserId((int) session.getAttribute("id"));
+        int price = cart.getPrice();
+        String url = "";
+        try {
+            url = payService.pay(price);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return "redirect:"+url;
+    }
+    @GetMapping("pay-success")
+    public String success(HttpSession session){
+        cartService.addCodOrder(session);
         session.setAttribute("sum", 0);
         return "redirect:/";
     }

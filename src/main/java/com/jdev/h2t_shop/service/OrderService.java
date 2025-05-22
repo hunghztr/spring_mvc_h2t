@@ -2,6 +2,7 @@ package com.jdev.h2t_shop.service;
 
 import com.jdev.h2t_shop.model.Order;
 import com.jdev.h2t_shop.model.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

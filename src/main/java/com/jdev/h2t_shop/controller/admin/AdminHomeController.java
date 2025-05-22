@@ -32,8 +32,7 @@ public class AdminHomeController {
     public String home(Model model){
         var orders = orderService.getAllOrders();
         List<Category> categories = categoryService.getAll();
-        List<Integer> prices = new ArrayList<>();
-
+        List<Integer> counts = categories.stream().map(i->i.getProducts().size()).toList();
         List<String> categoryNames = categories.stream().map(i->i.getName()).toList();
 
         int price = orders.stream().mapToInt(i->i.getPrice()).sum();
@@ -42,7 +41,7 @@ public class AdminHomeController {
         model.addAttribute("users",userService.count());
         model.addAttribute("totalPrice",price);
         model.addAttribute("categoryNames", categoryNames);
-        model.addAttribute("categoryCounts", List.of(10, 20, 15));
+        model.addAttribute("categoryCounts", counts);
        return "admin/home/home";
     }
 }
