@@ -6,8 +6,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-4">
 
-            <div class="text-xl font-bold text-primary">
-                <a href="/" class="hover:text-primary">H2T</a>
+            <div class="text-xl font-bold text-[#e85205]">
+                <a href="/" class="hover:text-white">H2T</a>
             </div>
 
             <!-- Navigation Menu -->
@@ -69,7 +69,7 @@
                 </div>
 
                 <!-- Cart Icon -->
-                <a href="#" class="relative text-gray-700 hover:text-primary">
+                <a href="/cart" class="relative text-gray-700 hover:text-primary">
                     <svg
                             class="w-6 h-6"
                             fill="none"
@@ -83,8 +83,10 @@
                                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h11l-1.5-7M7 13h10"
                         />
                     </svg>
-                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">${sessionScope.sum}</span>
-                </a>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">
+                        ${empty sessionScope.sum ? 0 : sessionScope.sum}
+                    </span>
+                </span> </a>
 
                 <!-- Avatar -->
                 <div class="relative inline-block text-left">

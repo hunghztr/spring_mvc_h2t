@@ -10,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ProductService {
+    long count();
     Page<Product> getAll(Specification<Product> spec, Pageable pageable);
+    List<Product> getAllByIdIn(List<Integer> ids);
     Product getById(int id);
     Product create(Product product);
     Product update(Product product);
@@ -21,4 +23,5 @@ public interface ProductService {
     Page<Product> getPageByPriceLessThan(double price, Pageable pageable);
     Page<Product> getPageByPriceBetween(double price1,double price2, Pageable pageable);
     Page<Product> getPageByDiscountedPriceBetween(double price1,double price2, Pageable pageable);
+    List<Product> getAllProducts();
 }

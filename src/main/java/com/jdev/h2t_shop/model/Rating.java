@@ -16,8 +16,8 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    Product product;
+    @JoinColumn(name = "product_detail_id")
+    ProductDetail productDetail;
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;

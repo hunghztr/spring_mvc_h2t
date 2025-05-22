@@ -6,6 +6,7 @@ import com.jdev.h2t_shop.model.User;
 import com.jdev.h2t_shop.repository.OrderDetailRepository;
 import com.jdev.h2t_shop.repository.OrderRepository;
 import com.jdev.h2t_shop.service.OrderService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -58,4 +59,16 @@ public class OrderServiceImpl implements OrderService {
         orderDetailRepository.deleteByIdIn(ids);
         this.deleteById(id);
     }
+
+    @Override
+    public long count() {
+        return orderRepository.count();
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
+
 }

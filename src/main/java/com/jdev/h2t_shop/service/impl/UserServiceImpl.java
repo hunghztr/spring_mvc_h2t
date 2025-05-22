@@ -62,4 +62,9 @@ public class UserServiceImpl implements UserService {
     public Page<User> getAll(Specification<User> spec, Pageable pageable) {
         return userRepository.findAll(spec, pageable);
     }
+
+    @Override
+    public long count() {
+        return userRepository.count();
+    }
 }

@@ -35,9 +35,21 @@ public class ProductServiceImpl implements ProductService {
         this.upLoadService = upLoadService;
         this.categoryService = categoryService;
     }
+
+    @Override
+    public long count() {
+        return productRepository.count();
+    }
+
     public Page<Product> getAll(Specification<Product> spec, Pageable pageable) {
         return productRepository.findAll(spec, pageable);
     }
+
+    @Override
+    public List<Product> getAllByIdIn(List<Integer> ids) {
+        return productRepository.findAllByIdIn(ids);
+    }
+
     @Override
     public Product getById(int id) {
         return productRepository.findById(id).get();
@@ -102,6 +114,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> getPageByDiscountedPriceBetween(double price1, double price2, Pageable pageable) {
         return productRepository.findByDiscountedPriceBetween(price1,price2,pageable);
+    }
+
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 
 }

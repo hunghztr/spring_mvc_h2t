@@ -15,9 +15,10 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
+    Integer total;
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    Product product;
+    @JoinColumn(name = "product_detail_id")
+    ProductDetail productDetail;
     @ManyToOne
     @JoinColumn(name = "order_id")
     Order order;

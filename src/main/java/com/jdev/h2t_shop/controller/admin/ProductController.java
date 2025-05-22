@@ -40,7 +40,7 @@ public class ProductController {
 
     @GetMapping("/")
     public String home(Model model,@RequestParam(value = "keyword", required = false) String keyword,
-                       @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
+                       @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         Specification<Product> spec = Specification.where(null);
 
         if (keyword != null && !keyword.isEmpty()) {
