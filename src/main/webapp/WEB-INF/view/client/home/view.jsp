@@ -59,6 +59,7 @@
                         <c:choose>
                             <c:when test="${product.category.sale.discount != 0}">
                                 <!-- Giá gốc bị gạch nếu có giảm -->
+
                                 <p class="line-through text-gray-400 text-sm">
                                     <fmt:formatNumber value="${product.price}" type="currency" currencySymbol="₫"
                                                       maxFractionDigits="0"/>

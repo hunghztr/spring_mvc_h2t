@@ -9,10 +9,12 @@ import com.jdev.h2t_shop.service.OrderService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
@@ -47,6 +49,15 @@ public class CartServiceImpl implements CartService {
             getCart = user.getCart();
             getCart.setTotal(getCart.getTotal() + count);
             int price = (int) detail.getProduct().getPrice() * count;
+            if(detail.getProduct().getCategory().getSale() != null){
+                double temp =
+                        detail.getProduct().getPrice() - (detail.getProduct().getPrice() * detail.getProduct().getCategory().getSale().getDiscount()/100);
+                log.info("Sale: " +
+                        temp);
+                price = (int) temp*count;
+                log.info(price+"");
+            }
+
             getCart.setPrice(getCart.getPrice() + price);
         } else {
             getCart.setTotal(count);
